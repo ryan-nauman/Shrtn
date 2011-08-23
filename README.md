@@ -13,8 +13,15 @@ included that provide readibility and a randomized character set.
 Usage
 -----
 
+Encode has the following forms:
+
+    // Encode(ulong value)
     string crockfordLower = Shorten.Encode(u);
-    string crockfordMixed = Shorten.Encode(u, EncoderTypes.ZBase32);
+    
+    // Encode(ulong value, EncoderTypes encoderType)
+    string zBase32 = Shorten.Encode(u, EncoderTypes.ZBase32);
+    
+    // Encode(ulong value, BaseEncoder encoder)
     string binary = Shorten.Encode(u, new BinaryEncoder()); // just for fun
     
 Contribute
@@ -27,10 +34,11 @@ create any additional encoders.
 To Do
 -----
 
-I plan on implementing a unicode symbol set for domains that allow for 
-[super](http://tinyarrows.com/) 
-[short](http://en.wikipedia.org/wiki/Internationalized_domain_name) 
-using unicode. I've also included stubs for Decoding if I get around to 
-writing inverse functions. Someone might also find it useful to go from 
+I plan on implementing a unicode symbol set for registrars that allow 
+for [super-short](http://tinyarrows.com/) 
+[domains](http://en.wikipedia.org/wiki/Internationalized_domain_name) 
+using unicode. I've also included stubs for `Decode` if I get around to
+writing inverse functions. Someone might also find it useful to go from
 a starting base other than 10 but I don't have much interest in that 
 right now. 
+
