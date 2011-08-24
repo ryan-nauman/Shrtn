@@ -42,6 +42,8 @@
   <ItemGroup>
     <Compile Include="Entity\Encoders\BinaryEncoder.cs" />
     <Compile Include="Entity\Encoders\HexadecimalEncoder.cs" />
+    <Compile Include="Entity\Encoders\UnicodeSymbolsEncoder.cs" />
+    <Compile Include="Entity\IntegerRange.cs" />
     <Compile Include="Shrtn.cs" />
     <Compile Include="Entity\Encoders\CrockfordLowerEncoder.cs" />
     <Compile Include="Entity\Encoders\CrockfordMixedEncoder.cs" />

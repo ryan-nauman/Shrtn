@@ -26,6 +26,9 @@ namespace Shrtn.Entity
                 case EncoderTypes.Hexadecimal:
                     encoder = new HexadecimalEncoder();
                     break;
+                case EncoderTypes.UnicodeSymbols:
+                    encoder = new UnicodeSymbolsEncoder();
+                    break;
                 default:
                     throw new ArgumentException("Encoder type not registered");
             }

@@ -10,6 +10,7 @@ namespace Shrtn.Entity
         CrockfordLower,
         CrockfordMixed,
         ZBase32,
-        Hexadecimal
+        Hexadecimal,
+        UnicodeSymbols
     }
 }
