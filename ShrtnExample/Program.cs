@@ -49,7 +49,6 @@ namespace BaseEncoderDriver
             string zbase32 = string.Empty;
             string binary = string.Empty;
             string hexadecimal = string.Empty;
-            string unicode = string.Empty;
 
             foreach (ulong u in tests)
             {
@@ -58,7 +57,6 @@ namespace BaseEncoderDriver
                 zbase32 = Shorten.Encode(u, EncoderTypes.ZBase32);
                 binary = Shorten.Encode(u, new BinaryEncoder()); // just for fun
                 hexadecimal = Shorten.Encode(u, EncoderTypes.Hexadecimal);
-                unicode = Shorten.Encode(u, EncoderTypes.UnicodeSymbols);
 
                 Console.WriteLine("{0}:", u);
                 Console.WriteLine("CrockfordLower: {0}".PadLeft(20), crockfordLower);
