@@ -63,9 +63,13 @@ namespace Shrtn.Entity.Encoders
 
         #endregion
 
-        private readonly char[] _characters;
-
         public UnicodeSymbolsEncoder()
+            : base(new [] {'b', 'o', 'g', 'u', 's'})
+        {
+            this.GenerateCharacters();
+        }
+
+        private void GenerateCharacters()
         {
             List<char> tempChars = new List<char>();
 
@@ -77,17 +81,7 @@ namespace Shrtn.Entity.Encoders
                 }
             }
 
-            _characters = tempChars.ToArray();
-        }
-
-        public override char[] Characters
-        {
-            get { return _characters; }
-        }
-
-        public override ulong Decode(string input)
-        {
-            throw new NotImplementedException();
+            base.SetCharacters(tempChars);
         }
     }
 }

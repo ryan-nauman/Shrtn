@@ -21,7 +21,8 @@ namespace Shrtn.Utility
         /// </summary>
         /// <param name="value">Value to be converted</param>
         /// <param name="baseChars">The characters to be used for encoding</param>
-        public static string IntToStringFast(UInt64 value, char[] baseChars)
+        /// <returns>A converted string</returns>
+        public static string IntToStringFast(ulong value, char[] baseChars)
         {
             // 64 is the worst cast buffer size for base 2 and UInt64.MaxValue
             int i = 64;
@@ -42,12 +43,36 @@ namespace Shrtn.Utility
         }
 
         /// <summary>
+        /// An optimized method using an array as buffer instead of 
+        /// string concatenation. This is faster for return values having 
+        /// </summary>
+        /// <param name="encoder">this</param>
+        /// <param name="value">Value to be converted</param>
+        /// <returns>A converted string</returns>
+        public static string IntToStringFast(this BaseEncoder encoder, ulong value)
+        {
+            return IntToStringFast(value, encoder.Characters);
+        }
+
+        /// <summary>
+        /// An optimized method using an array as buffer instead of 
+        /// string concatenation. This is faster for return values having 
+        /// </summary>
+        /// <param name="value">Value to be converted</param>
+        /// <param name="encoder"></param>
+        /// <returns></returns>
+        public static string IntToStringFast(ulong value, BaseEncoder encoder)
+        {
+            return IntToStringFast(value, encoder.Characters);
+        }
+
+        /// <summary>
         /// Also print character value to debug unreadable unicode symbols
         /// </summary>
         /// <param name="value">Value t obe converted</param>
         /// <param name="baseChars">The characters to be used for encoding</param>
         /// <returns>An encoded value</returns>
-        public static string IntToStringFastDebug(UInt64 value, BaseEncoder encoder)
+        public static string IntToStringFastDebug(ulong value, BaseEncoder encoder)
         {
             // 64 is the worst cast buffer size for base 2 and UInt64.MaxValue
             int i = 64;
@@ -81,27 +106,58 @@ namespace Shrtn.Utility
         }
 
         /// <summary>
-        /// An optimized method using an array as buffer instead of 
-        /// string concatenation. This is faster for return values having 
+        /// An optimized method using a dictionary populated with characters and values
+        /// to avoid iterating over characters to find value
         /// </summary>
-        /// <param name="encoder">this</param>
-        /// <param name="value">Value to be converted</param>
-        /// <returns>A converted string</returns>
-        public static string IntToStringFast(this BaseEncoder encoder, UInt64 value)
+        /// <param name="encodedValue">The encoded string</param>
+        /// <param name="baseChars">The characters used to encode an integer to this string</param>
+        /// <returns>A converted integer</returns>
+        public static ulong StringToIntFast(string encodedValue, Dictionary<char, int> baseChars)
         {
-            return IntToStringFast(value, encoder.Characters);
+            ulong result = 0;
+            int sourceBase = baseChars.Count;
+            int nextCharIndex = 0;
+            int encodedValueLength = encodedValue.Length;
+
+            for (int currentChar = encodedValueLength - 1; currentChar >= 0; currentChar--)
+            {
+                char next = encodedValue[currentChar];
+
+                if (!baseChars.TryGetValue(next, out nextCharIndex))
+                {
+                    throw new ArgumentException("Input includes illegal characters.");
+                }
+
+                // For character N (from the end of the string), we multiply our value
+                // by 64^N. eg. if we have "CE" in hex, F = 16 * 13.
+                // CAST CAST CAST CAST!!1!!!!ONE@!
+                result += Shrtn.Utility.Math.Pow((ulong)sourceBase, (ulong)encodedValueLength - 1 - (ulong)currentChar) * (ulong)nextCharIndex;
+            }
+
+            return result;
         }
 
         /// <summary>
-        /// An optimized method using an array as buffer instead of 
-        /// string concatenation. This is faster for return values having 
+        /// An optimized method using a dictionary populated with characters and values
+        /// to avoid iterating over characters to find value
         /// </summary>
-        /// <param name="value">Value to be converted</param>
-        /// <param name="encoder"></param>
-        /// <returns></returns>
-        public static string IntToStringFast(UInt64 value, BaseEncoder encoder)
+        /// <param name="encoder">The encoder used to encode this string</param>
+        /// <param name="encodedValue">The encoded string</param>
+        /// <returns>A converted integer</returns>
+        public static ulong StringToIntFast(this BaseEncoder encoder, string encodedValue)
         {
-            return IntToStringFast(value, encoder.Characters);
+            return StringToIntFast(encodedValue, encoder.CharactersToValues);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="encodedValue">The encoded string</param>
+        /// <param name="encoder">The encoder used to encode this string</param>
+        /// <returns>A converted integer</returns>
+        public static ulong StringToIntFast(string encodedValue, BaseEncoder encoder)
+        {
+            return StringToIntFast(encodedValue, encoder.CharactersToValues);
         }
     }
 }

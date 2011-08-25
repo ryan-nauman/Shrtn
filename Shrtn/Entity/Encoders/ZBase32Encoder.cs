@@ -14,19 +14,7 @@ namespace Shrtn.Entity.Encoders
             'c', 'q', 'o', 'u', 's', '3', '4', '-'
         };
 
-        public override char[] Characters
-        {
-            get { return _characters; }
-        }
-
-        //public override string Encode(ulong input)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public override ulong Decode(string input)
-        {
-            throw new NotImplementedException();
-        }
+        public ZBase32Encoder()
+            : base(_characters) { }
     }
 }

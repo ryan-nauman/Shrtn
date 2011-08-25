@@ -11,14 +11,7 @@ namespace Shrtn.Entity.Encoders
             '0', '1'
         };
 
-        public override char[] Characters
-        {
-            get { return _characters; }
-        }
-
-        public override ulong Decode(string input)
-        {
-            throw new NotImplementedException();
-        }
+        public BinaryEncoder()
+            : base(_characters) { }
     }
 }

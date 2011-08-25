@@ -14,19 +14,7 @@ namespace Shrtn.Entity.Encoders
             'f', 'q', 't', 'x', 'z', 'd', 'm', 'v'
         };
 
-        public override char[] Characters
-        {
-            get { return _characters; }
-        }
-
-        //public override string Encode(ulong input)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        public override ulong Decode(string input)
-        {
-            throw new NotImplementedException();
-        }
+        public CrockfordLowerEncoder()
+            : base(_characters) { }
     }
 }

@@ -45,5 +45,39 @@ namespace Shrtn
         {
             return encoder.Encode(value);
         }
+
+        /// <summary>
+        /// Decode a string using the default encoder
+        /// </summary>
+        /// <param name="encodedValue">The encoded string</param>
+        /// <returns>A converted integer</returns>
+        public static ulong Decode(string encodedValue)
+        {
+            return Decode(encodedValue, EncoderTypes.CrockfordLower);
+        }
+
+        /// <summary>
+        /// Decode a string and specify one of the builtin encoders
+        /// </summary>
+        /// <param name="encodedValue">The encoded string</param>
+        /// <param name="encoderType">The encoder used on this string</param>
+        /// <returns>A converted integer</returns>
+        public static ulong Decode(string encodedValue, EncoderTypes encoderType)
+        {
+            EncoderFactory factory = new EncoderFactory();
+            BaseEncoder encoder = factory.GetEncoder(encoderType);
+            return encoder.Decode(encodedValue);
+        }
+
+        /// <summary>
+        /// Decode a string using a custom encoder
+        /// </summary>
+        /// <param name="encodedValue">The encoded string</param>
+        /// <param name="encoder">The custom encoder to be used</param>
+        /// <returns>A converted integer</returns>
+        public static ulong Decode(string encodedValue, BaseEncoder encoder)
+        {
+            return encoder.Decode(encodedValue);
+        }
     }
 }
