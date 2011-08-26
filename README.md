@@ -23,9 +23,17 @@ Encode has the following forms:
     
     // Encode(ulong value, BaseEncoder encoder)
     string binary = Shorten.Encode(u, new BinaryEncoder()); // just for fun
+
+Decode has similar forms:
+
+    // Decode(string encodedValue)
+    crockfordLowerDecoded = Shorten.Decode(crockfordLower);
     
     // Decode(string encodedValue, EncoderTypes encoderType)
-    ulong zBase32Decoded = Shorten.Decode(zBase32, EncoderTypes.ZBase32);
+    ulong crockfordMixedDecoded = Shorten.Decode(crockfordMixed, EncoderTypes.CrockfordMixed);
+    
+    // Decode(string encodedValue, BaseEncoder encoder)
+    ulong binaryDecoded = Shorten.Decode(binary, new BinaryEncoder());
     
 Contribute
 ---------
