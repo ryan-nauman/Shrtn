@@ -24,6 +24,9 @@ Encode has the following forms:
     // Encode(ulong value, BaseEncoder encoder)
     string binary = Shorten.Encode(u, new BinaryEncoder()); // just for fun
     
+    // Decode(string encodedValue, EncoderTypes encoderType)
+    ulong zBase32Decoded = Shorten.Decode(zBase32, EncoderTypes.ZBase32);
+    
 Contribute
 ---------
 
@@ -34,11 +37,5 @@ create any additional encoders.
 To Do
 -----
 
-I plan on implementing a unicode symbol set for registrars that allow 
-for [super-short](http://tinyarrows.com/) 
-[domains](http://en.wikipedia.org/wiki/Internationalized_domain_name) 
-using unicode. I've also included stubs for `Decode` if I get around to
-writing inverse functions. Someone might also find it useful to go from
-a starting base other than 10 but I don't have much interest in that 
-right now. 
-
+Some might find it useful to go from a starting base other than 10
+but I don't have much interest in that right now.
